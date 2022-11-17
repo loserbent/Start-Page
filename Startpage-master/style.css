@@ -1,0 +1,364 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+@font-face {
+	font-family: "Fira Code";
+	src: local("FiraCode Nerd Font"), url("fonts/Fira-Code-Regular-Nerd-Font-Complete.woff2"), local("monospace");
+	font-display: swap;
+}
+
+:root {
+	--bg-image: url("");
+	--bg-color: #282a36;
+	--card-animation-color: #44475a;
+	--card-animation-color2: #72758b;
+	--card-bg-color: #44475a4d;
+	--card-shadow-color: #6272a4;
+	--light-color: #dbdbdb;
+	--light-dim-color: #b3b3b3;
+	--primary-color: #50fa7b;
+	--primary-dim-color: #05a82e;
+	--secondary-color: #bd93f9;
+	--secondary-dim-color: #a76ef7;
+	--search-input-color: #f8f8f2;
+	--search-btn-color: #6272a4;
+	--search-btn-hover-color: #ffffff1a;
+	--gray: #44475a;
+	--warning-color: #ffb86c;
+	--danger-color: #ff5555;
+	--danger-dim-color: #ff0000;
+	--container-max-height: 400px;
+}
+
+body {
+	font-family: "Fira Code", monospace;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100vw;
+	height: 100vh;
+	background-color: var(--bg-color);
+	background-image: var(--bg-image);
+	background-size: cover;
+}
+
+.container {
+	width: 80%;
+	height: var(--container-max-height);
+	display: flex;
+	position: relative;
+
+	border-radius: 0px;
+	border: 0.125rem solid var(--primary-color);
+	box-shadow: 12px 12px 0px var(--card-shadow-color);
+}
+
+/* taken from https://github.com/LernyWensi/Endless */
+#scanlines {
+	background-image: url("styles/scanlines.png");
+	background-repeat: repeat;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+	z-index: 9999;
+	animation: scanAnim 0.6s infinite;
+	animation-timing-function: linear;
+	pointer-events: none;
+	background-color: transparent;
+}
+
+@keyframes scanAnim {
+	0% {
+		background-position: 0px 0px;
+	}
+	100% {
+		background-position: 0px 8px;
+	}
+}
+
+/* --------------------------------------- */
+/* cover-img and timer */
+.img-holder {
+	max-width: 17em;
+	width: 30%;
+	margin-bottom: 0;
+	overflow: hidden;
+	position: relative;
+}
+
+.img-holder img {
+	object-fit: cover;
+	filter: blur(2px);
+	opacity: 0.6;
+	width: 17em;
+	height: var(--container-max-height);
+}
+
+.img-holder #time {
+	width: auto;
+	padding: 0;
+	position: absolute;
+	top: 50%;
+	right: 50%;
+	transform: translate(50%, -50%);
+	color: var(--light-color);
+	font-size: 4rem;
+}
+
+.time-container {
+	position: relative;
+}
+
+.ampm {
+	font-size: 2rem;
+	position: absolute;
+	bottom: 9px;
+	right: -40px;
+}
+
+/* --------------------------------------- */
+/* searchbox */
+.searchbox {
+	width: 100%;
+	display: flex;
+	margin-bottom: 1em;
+}
+
+.searchbox input {
+	font-size: 1rem;
+	font-family: "Fira Code", monospace;
+	width: 100%;
+	padding: 0.7em;
+	color: var(--search-input-color);
+	background-color: var(--bg-color);
+	border: none;
+	outline: none;
+}
+
+.searchbox:focus-within {
+	outline: 1px var(--secondary-color) solid;
+}
+
+.searchbox button {
+	font-size: 1rem;
+	font-family: "Fira Code", monospace;
+	padding: 0 1em;
+	color: var(--search-btn-color);
+	background-color: var(--bg-color);
+	border: none;
+	outline: none;
+	transition: background-color 0.4s ease;
+}
+
+.searchbox button:focus-visible,
+.searchbox button:hover {
+	cursor: pointer;
+	background-color: var(--search-btn-hover-color);
+}
+
+/* --------------------------------------- */
+/* main */
+.main {
+	color: var(--light-color);
+	position: relative;
+	width: 100%;
+	padding: 1.5em;
+	background-color: var(--card-bg-color);
+	overflow: auto;
+	scrollbar-color: var(--secondary-color) var(--gray);
+	scrollbar-width: thin;
+}
+
+.main h1 {
+	color: var(--primary-color);
+}
+
+.main h2 {
+	color: var(--primary-dim-color);
+	margin-bottom: 1em;
+}
+
+/* --------------------------------------- */
+/* info icons */
+.nav-icons {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	display: flex;
+	gap: 0.5em;
+	cursor: pointer;
+	transition: all 0.25s ease-out;
+	opacity: 0.35;
+}
+
+.nav-icons span img {
+	width: 20px;
+	-webkit-filter: invert(100%); /* safari 6.0 - 9.0 */
+	filter: invert(100%);
+}
+
+.nav-icons:hover {
+	opacity: 1;
+}
+
+.nav-icons span:hover {
+	transform: scale(1.2);
+}
+
+/* --------------------------------------- */
+/* bookmarks */
+.bookmarks {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: flex-start;
+	gap: 3rem;
+}
+
+.bookmarks h3 {
+	color: var(--light-dim-color);
+}
+
+.bookmarks a {
+	text-decoration: none;
+	color: var(--secondary-color);
+	padding: 0.5em;
+	padding-left: 0;
+	position: relative;
+	outline: none;
+}
+
+.bookmarks a:hover,
+.bookmarks a:focus-visible,
+.bookmarks a:active {
+	color: var(--primary-color);
+}
+
+.bookmarks a:before {
+	content: "";
+	transition: all 0.25s ease-in-out;
+	opacity: 0;
+}
+
+.bookmarks a:hover::before,
+.bookmarks a:focus-visible::before {
+	content: "\0ea9c";
+	position: absolute;
+	left: -1rem;
+	opacity: 1;
+}
+
+.bookmarks-row {
+	display: flex;
+	flex-direction: column;
+}
+
+/* --------------------------------------- */
+/* Input */
+.input-wrapper {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+.form-checkbox {
+	display: grid;
+	grid-template-columns: 1em auto;
+	gap: 0.5em;
+}
+
+.form-checkbox label {
+	padding-top: 2px;
+}
+
+.input-field {
+	font-size: 1rem;
+	font-family: "Fira Code", monospace;
+	padding: 0.7em;
+	color: var(--search-input-color);
+	background-color: var(--bg-color);
+	border: none;
+	outline: none;
+}
+
+textarea.input-field {
+	resize: vertical;
+}
+
+.input-field:focus-within {
+	outline: 1px var(--secondary-color) solid;
+}
+
+.input-button {
+	font-size: 1rem;
+	font-family: "Fira Code", monospace;
+	padding: 0 1em;
+	color: var(--search-btn-color);
+	background-color: var(--bg-color);
+	border: none;
+	outline: none;
+	transition: background-color 0.4s ease;
+}
+
+.input-button:focus-visible,
+.input-button:hover {
+	cursor: pointer;
+	background-color: rgba(58, 34, 34, 0.1);
+}
+
+.btn-danger {
+	background-color: var(--danger-color);
+	color: var(--search-input-color);
+}
+
+.btn-danger:hover {
+	cursor: pointer;
+	background-color: var(--danger-dim-color);
+}
+
+.btn-primary {
+	background-color: var(--primary-color);
+	color: var(--gray);
+}
+
+.btn-primary:hover {
+	cursor: pointer;
+	background-color: var(--primary-dim-color);
+}
+
+.btn-secondary {
+	background-color: var(--secondary-color);
+	color: var(--gray);
+}
+
+.btn-secondary:hover {
+	cursor: pointer;
+	background-color: var(--secondary-dim-color);
+}
+
+.btn-small {
+	font-size: 0.8rem;
+	padding: 0.5em;
+}
+
+/* --------------------------------------- */
+::-webkit-scrollbar {
+	width: 0.4em;
+	height: 0.4em;
+}
+
+::-webkit-scrollbar-track {
+	background-color: var(--gray);
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: var(--secondary-color);
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background-color: var(--secondary-dim-color);
+}

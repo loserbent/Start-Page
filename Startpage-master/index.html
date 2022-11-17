@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>New Tab</title>
+		<link id="favicon-display" rel="shortcut icon" href="favicon.ico" />
+		<link rel="stylesheet" href="style.css" type="text/css" media="screen" />
+		<link rel="stylesheet" href="styles/util.css" type="text/css" media="screen" />
+		<link rel="stylesheet" href="styles/animation.css" type="text/css" />
+		<link rel="preload" as="font" href="fonts/Fira-Code-Regular-Nerd-Font-Complete.woff2" type="font/woff2" crossorigin="anonymous" />
+		<script defer src="scripts/timer.js"></script>
+		<script defer src="scripts/setting.js"></script>
+		<script defer src="scripts/page-switcher.js"></script>
+		<script defer src="scripts/load-bookmark.js"></script>
+		<script defer type="module" src="scripts/search.js"></script>
+		<script defer type="module" src="scripts/validator.js"></script>
+	</head>
+
+	<body>
+		<!-- Home Page -->
+		<div class="container" id="home">
+			<div id="scanlines"></div>
+			<div class="img-holder">
+				<img id="coverImg-display" src="images/lein.gif" alt="Cool Img" />
+				<div class="time-container" id="time"></div>
+			</div>
+			<div class="main">
+				<div class="nav-icons">
+					<span onclick="switchTo('home')"><img src="images/home.svg" alt="home icon" /></span>
+					<span onclick="switchTo('setting')"><img src="images/setting.svg" alt="setting icon" /></span>
+					<span onclick="switchTo('about')"><img src="images/info.svg" alt="info icon" /></span>
+				</div>
+				<h1 class="greeting">Hello, <span id="user-display">Dadang</span></h1>
+				<h2 id="today">Today is someday</h2>
+				<div class="searchbox">
+					<input type="search" id="search" placeholder="Search..." />
+					<button id="searchButton">&#61442;</button>
+				</div>
+				<div class="bookmarks" id="bookmarks"></div>
+			</div>
+		</div>
+
+		<!-- Setting Page -->
+		<div class="container hidden" id="setting">
+			<div id="scanlines"></div>
+			<div class="main d-flex flex-column flex-gap-1">
+				<div class="nav-icons">
+					<span onclick="switchTo('home')"><img src="images/home.svg" alt="home icon" /></span>
+					<span onclick="switchTo('setting')"><img src="images/setting.svg" alt="setting icon" /></span>
+					<span onclick="switchTo('about')"><img src="images/info.svg" alt="info icon" /></span>
+				</div>
+				<h1 class="mx-auto">Setting</h1>
+
+				<div class="input-wrapper">
+					<label for="winTitle">Window Title</label>
+					<input class="input-field" type="text" id="winTitle" placeholder="New Tab" />
+				</div>
+
+				<div class="input-wrapper">
+					<label for="user">Username</label>
+					<input class="input-field" type="text" id="user" />
+				</div>
+
+				<div class="input-wrapper">
+					<label for="favicon">Favicon <small>(Url)</small></label>
+					<input class="input-field" type="text" id="favicon" />
+				</div>
+
+				<div class="input-wrapper">
+					<label for="cover-image-opt">Cover Image</label>
+
+					<select name="cover-image-opt" id="selectCoverImage" class="input-field">
+						<option value="pic_1">Pic_1</option>
+						<option value="pic_2">Pic_2</option>
+						<option value="pic_3">Pic_3</option>
+						<option value="pic_4">Pic_4</option>
+						<option value="pic_5">Pic_5</option>
+						<option value="pic_6">Pic_6</option>
+						<option value="pic_7">Pic_7</option>
+						<option value="pic_8">Pic_8</option>
+						<option value="pic_9">Pic_9</option>
+						<option value="custom">Custom</option>
+					</select>
+					<input class="input-field" type="text" id="coverImg" disabled />
+				</div>
+
+				<div class="input-wrapper">
+					<label for="coverImg-opacity">Cover Image Opacity <span id="coverImgOpacity-display"></span></label>
+					<input class="input-field" type="range" id="coverImgOpacity" min="0" max="1" step="0.1" />
+				</div>
+
+				<div class="input-wrapper">
+					<label for="coverImg-blur">Cover Image Blur <span id="coverImgBlur-display"></span></label>
+					<input class="input-field" type="range" id="coverImgBlur" />
+				</div>
+
+				<div class="input-wrapper">
+					<form class="form-checkbox">
+						<input type="checkbox" id="animation-enabled" />
+						<label for="animation-enabled">Enable animation</label>
+					</form>
+				</div>
+
+				<div class="input-wrapper">
+					<p>Clock Settings</p>
+					<div class="input-wrapper flex-row flex-gap-1">
+						<form class="form-checkbox">
+							<input type="checkbox" id="showClock-image" />
+							<label for="showClock-image">Show Clock in Image</label>
+						</form>
+
+						<form class="form-checkbox">
+							<input type="checkbox" id="showClock-date" />
+							<label for="showClock-date">Show Clock in date</label>
+						</form>
+
+						<form class="form-checkbox">
+							<input type="checkbox" id="amPm" />
+							<label for="amPm">AM/PM Format</label>
+						</form>
+
+						<form class="form-checkbox">
+							<input type="checkbox" id="showSeconds" />
+							<label for="showSeconds">Show Seconds</label>
+						</form>
+					</div>
+				</div>
+
+				<div class="input-wrapper">
+					<label for="search-engine-opt">
+						Search Engine
+						<small class="color-primary-dim">(You can use these options as prefix in the searchbox to search using that option. Ex: <code>`youtube: cats`</code> )</small>
+					</label>
+
+					<select name="search-engine-opt" id="searchEngine" class="input-field">
+						<option value="google">Google</option>
+						<option value="duckduckgo">Duckduckgo (ddg)</option>
+						<option value="brave">Brave</option>
+						<option value="startpage">StartPage</option>
+						<option value="ecosia">Ecosia</option>
+						<option value="bing">Bing</option>
+						<option value="yandex">Yandex</option>
+						<option value="stackoverflow">Stackoverflow (so)</option>
+						<option value="youtube">Youtube (yt)</option>
+						<option value="twitter">Twitter</option>
+						<option value="github">Github</option>
+						<option value="reddit">Reddit</option>
+					</select>
+				</div>
+
+				<div class="input-wrapper">
+					<label for="customize-style" class="d-flex">
+						Bookmarks
+						<button id="warning-style" class="ms-auto input-field btn-danger btn-small" onclick="resetDefaultBookmarks()">Reset bookmarks to default</button>
+					</label>
+					<span id="warning-bookmarks" class="color-warning"></span>
+
+					<textarea class="input-field" id="bookmarks-saved" rows="12"></textarea>
+				</div>
+
+				<div class="input-wrapper">
+					<label for="customize-style" class="d-flex">
+						Customize Style
+						<button id="warning-style" class="ms-auto input-field btn-danger btn-small" onclick="resetDefaultStyles()">Reset style to default</button>
+					</label>
+
+					<textarea class="input-field" id="customize-style" rows="12"></textarea>
+				</div>
+
+				<div class="input-wrapper">
+					<p>Data</p>
+					<div class="d-flex">
+						<button class="input-field btn-primary btn-small">
+							<label for="setting-upload" class="pointer">Import Setting</label>
+						</button>
+						<input id="setting-upload" type="file" style="display: none" accept="application/JSON" class="input-field btn-primary btn-small" />
+						<button class="input-field btn-secondary btn-small ms-1" onclick="extractSettingsToJson()">Export Setting</button>
+					</div>
+				</div>
+
+				<hr />
+				<!-- button reset default -->
+				<div class="input-wrapper">
+					<h2>Danger Zone!</h2>
+					<button class="input-field btn-danger me-auto" onclick="resetDefault()">Reset Default</button>
+				</div>
+			</div>
+		</div>
+
+		<!-- About Page -->
+		<div class="container hidden" id="about">
+			<div id="scanlines"></div>
+			<div class="main d-flex flex-column flex-gap-1">
+				<div class="nav-icons">
+					<span onclick="switchTo('home')"><img src="images/home.svg" alt="home icon" /></span>
+					<span onclick="switchTo('setting')"><img src="images/setting.svg" alt="setting icon" /></span>
+					<span onclick="switchTo('about')"><img src="images/info.svg" alt="info icon" /></span>
+				</div>
+				<h1 class="mx-auto">About</h1>
+				<p>
+					A customizable <a class="link" href="https://github.com/Dadangdut33/Startpage">startpage</a> made with vanilla html, js, and css. Some ideas and design are inspired and taken from
+					<a class="link" href="https://reddit.com/r/startpages">r/startpages.</a> Take a look at the
+					<a class="link" href="https://github.com/Dadangdut33/Startpage/blob/master/readme.md">readme</a> for help & attributions.
+				</p>
+
+				<hr />
+
+				<h2 class="mb-0">Image Sources</h2>
+				<div>
+					<p>
+						<a class="link" href="https://www.pixiv.net/en/artworks/69414913">[69414913]</a>
+						<a class="link" href="https://twitter.com/i/web/status/974315063044603904">[blue]</a>
+						<a class="link" href="https://twitter.com/i/web/status/1161923643238039552">[lein]</a>
+						<a class="link" href="https://www.artstation.com/artwork/Xnwnn3">[corporations]</a>
+						<a class="link" href="https://www.artstation.com/artwork/Xnwnn3">[ramen]</a>
+						<a class="link" href="https://www.artstation.com/artwork/Xnwnn3">[sentinel]</a>
+						<a class="link" href="https://www.artstation.com/artwork/Xnwnn3">[neon]</a>
+						<a class="link" href="https://www.artstation.com/artwork/Xnwnn3">[samurai]</a>
+						<a class="link" href="https://www.pixiv.net/en/artworks/69754916">[white]</a>
+					</p>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
